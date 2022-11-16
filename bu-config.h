@@ -5,7 +5,7 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Noto Sans Mono:size=8";
+static char *font = "Noto Sans Mono:size=9";
 static int borderpx = 0;
 
 /*
