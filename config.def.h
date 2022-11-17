@@ -5,7 +5,7 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Noto Sans Mono:size=9";
+static char *font = "MesloLGS NF:size=9";
 static int borderpx = 0;
 
 /*
@@ -124,7 +124,7 @@ static const char *colorname[] = {
   [1] = "#ff5555", /* red     */
   [2] = "#50fa7b", /* green   */
   [3] = "#f1fa8c", /* yellow  */
-  [4] = "#bd93f9", /* blue    */
+  [4] = "#7aa2f7", /* blue    */
   [5] = "#ff79c6", /* magenta */
   [6] = "#8be9fd", /* cyan    */
   [7] = "#bbbbbb", /* white   */
@@ -133,13 +133,13 @@ static const char *colorname[] = {
   [9]  = "#ff5555", /* red     */
   [10] = "#50fa7b", /* green   */
   [11] = "#f1fa8c", /* yellow  */
-  [12] = "#bd93f9", /* blue    */
+  [12] = "#7aa2f7", /* blue    */
   [13] = "#ff79c6", /* magenta */
   [14] = "#8be9fd", /* cyan    */
   [15] = "#ffffff", /* white   */
                                  
   [256] = "#2e2e2e", /* background */
-  [257] = "#f8f8f2", /* foreground */
+  [257] = "#c0caf5", /* foreground */
  
 };
 
@@ -165,8 +165,6 @@ unsigned int defaultitalic = 7;
 unsigned int defaultunderline = 7;
 
 /*
-
-/*
  * Default shape of cursor
  * 2: Block ("█")
  * 4: Underline ("_")
@@ -184,6 +182,7 @@ unsigned int defaultunderline = 7;
  * 7: blinking st cursor
  * 8: steady st cursor
  */
+
 // static unsigned int cursorshape = 6;
 static unsigned int cursorstyle = 5;
 static Rune stcursor = 0x2603; /* snowman ("â˜ƒ") */
