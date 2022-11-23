@@ -5,7 +5,7 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "SauceCodePro Nerd Font:size=9";
+static char *font = "MesloLGS NF:size=9";
 static int borderpx = 0;
 
 /*
@@ -120,7 +120,7 @@ static const char *colorname[] = {
 
 	[255] = 0,
 
-  [0] = "#000000", /* black   */
+  [0] = "#282828", /* black   */
   [1] = "#ff5555", /* red     */
   [2] = "#50fa7b", /* green   */
   [3] = "#f1fa8c", /* yellow  */
