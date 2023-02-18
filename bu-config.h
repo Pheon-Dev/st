@@ -5,8 +5,8 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-/* static char *font = "MesloLGS NF:size=9.7"; */
-static char *font = "ComicMonoNF:size=9";
+static char *font = "MesloLGS NF:size=9.7";
+/* static char *font = "ComicMonoNF:size=9"; */
 static int borderpx = 2;
 
 /*
