@@ -5,9 +5,12 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "MesloLGS NF:size=9.7";
-/* static char *font = "ComicMonoNF:size=9"; */
-static int borderpx = 2;
+static char *font = "JetBrainsMono Nerd "
+                    "Font:monospace:pixelsize=14:antialias=true:autohint=true";
+static char *font2[] = {"Symbols Nerd Font:size=12",
+                        "Maple Mono:pixelsize=15:antialias=true:autohint=true",
+                        "Noto Color Emoji:style=Regular:size=10"};
+static int borderpx = 0;
 
 /*
  * What program is execed by st depends of these precedence rules:
@@ -28,7 +31,8 @@ char *vtiden = "\033[?6c";
 
 /* Kerning / character bounding-box multipliers */
 /* static float cwscale = 1.12; */
-static float cwscale = 1;
+static float cwscale = 1.0;
+/* static float cwscale = 0.875; */
 /* static float chscale = 0.875; */
 static float chscale = 1;
 /* static float chscale = 0.9376; */
@@ -108,49 +112,26 @@ float alpha = 0.6;
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
     /* 8 normal colors */
-    "black", "red3", "green3", "yellow3", "blue2", "magenta3", "cyan3",
-    "gray90",
+    "#45475A", "#F38BA8", "#A6E3A1", "#F9E2AF", "#89B4FA", "#F5C2E7", "#94E2D5",
+    "#BAC2DE",
 
     /* 8 bright colors */
-    "gray50", "red", "green", "yellow", "#6790EB", "magenta", "cyan", "white",
+    "#585B70", "#F38BA8", "#A6E3A1", "#F9E2AF", "#89B4FA", "#F5C2E7", "#94E2D5",
+    "#A6ADC8",
 
-    [0] = "#21222c", /* black   */
-    [1] = "#ff5555", /* red     */
-    [2] = "#50fa7b", /* green   */
-    [3] = "#f1fa8c", /* yellow  */
-    [4] = "#7aa2f7", /* blue    */
-    [5] = "#ff79c6", /* magenta */
-    [6] = "#8be9fd", /* cyan    */
-    [7] = "#bbbbbb", /* white   */
-
-    [8] = "#44475a",  /* black   */
-    [9] = "#ff5555",  /* red     */
-    [10] = "#50fa7b", /* green   */
-    [11] = "#f1fa8c", /* yellow  */
-    [12] = "#7aa2f7", /* blue    */
-    [13] = "#ff79c6", /* magenta */
-    [14] = "#8be9fd", /* cyan    */
-    [15] = "#ffffff", /* white   */
-
-    /* [255] = 0, */
-    [255] = "#21222c", /* background */
-    [256] = "#21222c", /* background */
-    [257] = "#c0caf5", /* foreground */
+    [256] = "#CDD6F4", /* default foreground colour */
+    [257] = "#1E1E2E", /* default background colour */
+    [258] = "#F5E0DC", /*575268*/
 
 };
 
 /*
- * Default colors (colorname index)
  * foreground, background, cursor, reverse cursor
  */
-// unsigned int defaultfg = 12;
-// unsigned int defaultbg = 0;
-// static unsigned int defaultcs = 14;
-// static unsigned int defaultrcs = 15;
-unsigned int defaultfg = 257;
-unsigned int defaultbg = 256;
-unsigned int defaultcs = 257;
-static unsigned int defaultrcs = 257;
+unsigned int defaultfg = 256;
+unsigned int defaultbg = 257;
+unsigned int defaultcs = 258;
+static unsigned int defaultrcs = 258;
 /*
  * Colors used, when the specific fg == defaultfg. So in reverse mode this
  * will reverse too. Another logic would only make the simple feature too
