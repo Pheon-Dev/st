@@ -5,8 +5,8 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "JetBrainsMono Nerd "
-                    "Font:monospace:pixelsize=14:antialias=true:autohint=true";
+static char *font = "Maple Mono:pixelsize=14:antialias=true:autohint=true";
+/* "Font:monospace:pixelsize=14:antialias=true:autohint=true"; */
 static char *font2[] = {"Symbols Nerd Font:size=12",
                         "Maple Mono:pixelsize=15:antialias=true:autohint=true",
                         "Noto Color Emoji:style=Regular:size=10"};
@@ -32,6 +32,10 @@ char *vtiden = "\033[?6c";
 /* Kerning / character bounding-box multipliers */
 static float cwscale = 1.0;
 static float chscale = 1.0;
+
+/* Character rendering offsets in pixels */
+static short cxoffset = 0;
+static short cyoffset = 0;
 
 /*
  * word delimiter string
