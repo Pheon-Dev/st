@@ -1,18 +1,21 @@
 /* See LICENSE file for copyright and license details. */
 
 /*
+ * appearance
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
+ * borderperc: percentage of cell width to use as a border
+ *		0 = no border, 100 = border width is same as cell width
  */
-static char *font =
-    "Maple Mono:monospace:pixelsize=15:antialias=true:autohint=true";
-/* static char *font = "JetBrainsMono Nerd "
-                    "Font:monospace:pixelsize=14:antialias=true:autohint=true";
+static char *font = "Maple Mono:pixelsize=15:antialias=true:autohint=true";
+/* static char *font = "JetBrainsMono Nerd
+ * Font:monospace:pixelsize=14:antialias=true:autohint=true";
  */
 
-/* static char *font2[] = {"Symbols Nerd Font:size=12",
-                        "Maple Mono:pixelsize=15:antialias=true:autohint=true",
-                        "Noto Color Emoji:style=Regular:size=10"}; */
-static int borderpx = 0;
+static char *font2[] = {
+    "JetBrainsMono Nerd "
+    "Font:monospace:pixelsize=14:antialias=true:autohint=true",
+    "Symbols Nerd Font:size=12", "Noto Color Emoji:style=Regular:size=10"};
+static int borderperc = 20;
 
 /*
  * What program is execed by st depends of these precedence rules:
