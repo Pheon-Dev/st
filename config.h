@@ -1,15 +1,17 @@
 /* See LICENSE file for copyright and license details. */
 
 /*
- * appearance
- *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Maple Mono:pixelsize=14:antialias=true:autohint=true";
-/* "Font:monospace:pixelsize=14:antialias=true:autohint=true"; */
-static char *font2[] = {"Symbols Nerd Font:size=12",
+static char *font =
+    "Maple Mono:monospace:pixelsize=15:antialias=true:autohint=true";
+/* static char *font = "JetBrainsMono Nerd "
+                    "Font:monospace:pixelsize=14:antialias=true:autohint=true";
+ */
+
+/* static char *font2[] = {"Symbols Nerd Font:size=12",
                         "Maple Mono:pixelsize=15:antialias=true:autohint=true",
-                        "Noto Color Emoji:style=Regular:size=10"};
+                        "Noto Color Emoji:style=Regular:size=10"}; */
 static int borderpx = 0;
 
 /*
@@ -30,7 +32,7 @@ char *stty_args = "stty raw pass8 nl -echo -iexten -cstopb 38400";
 char *vtiden = "\033[?6c";
 
 /* Kerning / character bounding-box multipliers */
-static float cwscale = 1.0;
+static float cwscale = 0.90;
 static float chscale = 1.0;
 
 /* Character rendering offsets in pixels */
