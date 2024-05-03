@@ -955,8 +955,6 @@ void xloadfonts(const char *fontstr, double fontsize) {
   win.ch = ceilf(dc.font.height * chscale);
   win.cyo = ceilf(dc.font.height * (chscale - 1) / 2);
 
-  borderpx = ceilf(((float)borderperc / 100) * win.cw);
-
   FcPatternDel(pattern, FC_SLANT);
   FcPatternAddInteger(pattern, FC_SLANT, FC_SLANT_ITALIC);
   if (xloadfont(&dc.ifont, pattern))
@@ -1469,48 +1467,33 @@ void xdrawglyphfontspecs(const XftGlyphFontSpec *specs, Glyph base, int len,
   if (dmode & DRAW_BG) {
     /* Intelligent cleaning up of the borders. */
     if (x == 0) {
-      xclear(0, (y == 0) ? 0 : winy, win.vborderpx,
+      xclear(0, (y == 0) ? 0 : winy, borderpx,
              winy + win.ch +
-                 ((winy + win.ch >= win.vborderpx + win.th) ? win.h : 0));
+                 ((winy + win.ch >= borderpx + win.th) ? win.h : 0));
     }
-    if (winx + width >= win.hborderpx + win.tw) {
+    if (winx + width >= borderpx + win.tw) {
       xclear(winx + width, (y == 0) ? 0 : winy, win.w,
-             ((winy + win.ch >= win.vborderpx + win.th) ? win.h
-                                                        : (winy + win.ch)));
+             ((winy + win.ch >= borderpx + win.th) ? win.h : (winy + win.ch)));
     }
     if (y == 0)
-      xclear(winx, 0, winx + width, win.hborderpx);
-    if (winy + win.ch >= win.vborderpx + win.th)
+      xclear(winx, 0, winx + width, borderpx);
+    if (winy + win.ch >= borderpx + win.th)
       xclear(winx, winy + win.ch, winx + width, win.h);
-
-    /* Set the clip region because Xft is sometimes dirty. */
-    r.x = 0;
-    r.y = 0;
-    r.height = win.ch;
-    r.width = width;
-    XftDrawSetClipRectangles(xw.draw, winx, winy, &r, 1);
-
     /* Fill the background */
     XftDrawRect(xw.draw, bg, winx, winy, width, win.ch);
   }
 
   if (dmode & DRAW_FG) {
-    if (base.mode & ATTR_BOXDRAW) {
-      drawboxes(winx, winy, width / len, win.ch, fg, bg, specs, len);
-    } else {
-      /* Render the glyphs. */
-      XftDrawGlyphFontSpec(xw.draw, fg, specs, len);
-    }
+    /* Render the glyphs. */
+    XftDrawGlyphFontSpec(xw.draw, fg, specs, len);
 
     /* Render underline and strikethrough. */
     if (base.mode & ATTR_UNDERLINE) {
-      XftDrawRect(xw.draw, fg, winx, winy + win.cyo + dc.font.ascent + 1, width,
-                  1);
+      XftDrawRect(xw.draw, fg, winx, winy + dc.font.ascent + 1, width, 1);
     }
 
     if (base.mode & ATTR_STRUCK) {
-      XftDrawRect(xw.draw, fg, winx, winy + win.cyo + 2 * dc.font.ascent / 3,
-                  width, 1);
+      XftDrawRect(xw.draw, fg, winx, winy + 2 * dc.font.ascent / 3, width, 1);
     }
   }
 
@@ -1526,13 +1509,17 @@ void xdrawglyph(Glyph g, int x, int y) {
   xdrawglyphfontspecs(&spec, g, numspecs, x, y, DRAW_BG | DRAW_FG);
 }
 
-void xdrawcursor(int cx, int cy, Glyph g, int ox, int oy, Glyph og) {
+void xdrawcursor(int cx, int cy, Glyph g, int ox, int oy, Glyph og, Line line,
+                 int len) {
   Color drawcol;
 
   /* remove the old cursor */
   if (selected(ox, oy))
     og.mode ^= ATTR_REVERSE;
-  xdrawglyph(og, ox, oy);
+
+  /* Redraw the line where cursor was previously.
+   * It will restore wide glyphs and ligatures broken by the cursor. */
+  xdrawline(line, 0, oy, len);
 
   if (IS_SET(MODE_HIDE))
     return;
@@ -1646,7 +1633,7 @@ void xdrawline(Line line, int x1, int y1, int x2) {
   numspecs_cached = xmakeglyphfontspecs(xw.specbuf, &line[x1], x2 - x1, x1, y1);
 
   /* Draw line in 2 passes: background and foreground. This way wide glyphs
-     won't get truncated (#223) */
+ won't get truncated (#223) */
   for (int dmode = DRAW_BG; dmode <= DRAW_FG; dmode <<= 1) {
     specs = xw.specbuf;
     numspecs = numspecs_cached;

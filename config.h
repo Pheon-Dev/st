@@ -15,7 +15,7 @@ static char *font2[] = {
     "JetBrainsMono Nerd "
     "Font:monospace:pixelsize=14:antialias=true:autohint=true",
     "Symbols Nerd Font:size=12", "Noto Color Emoji:style=Regular:size=10"};
-static int borderperc = 20;
+static int borderpx = 0;
 
 /*
  * What program is execed by st depends of these precedence rules:
